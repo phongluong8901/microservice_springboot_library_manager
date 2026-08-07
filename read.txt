@@ -1,0 +1,41 @@
+---- source
+https://github.com/thanhmati/microservice-eventsourcing
+
+--- tai lieu
+https://drive.google.com/drive/folders/1utO8kufnkr5P5eASsJ4mutSn-ahA4ahl
+
+
+--- run eureka server
+cd proj_1
+cd eventSourcing
+cd discoverserver
+cd discoverserver
+
+-- install
+mvn clean install
+
+-- chay bang maven
+mvn spring-boot:run
+
+-- serverlink spring
+http://localhost:8761
+
+--- run eureka client
+cd proj_1
+cd eventSourcing
+cd bookservice
+cd bookservice
+
+-- install
+mvn clean install
+
+- update pom.xml
+mvn clean install - U
+
+-- chay bang maven
+mvn spring-boot:run
+
+- run check loi
+mvn spring-boot:run -e
+
+-- serverlink spring

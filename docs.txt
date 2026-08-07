@@ -1,0 +1,47 @@
+#--- Info microservice
+monolithic - microservice
+
+scale cac module - > bung no code -> phuc tap, deploy kho
+
+microservice architect - DB rieng -> de scale
+kho sap hon
+
+khong nen dung chung DB, moi service dung DB rieng
+
+clients apps(mobile/webapp) - docker host (MVC - API getways/BFF - microservice) Event bus (pub/sub event) - RabbitMQ
+
+Communication microservice
+FE - API gateway(guard) - microservice(task) - event bus
+
+synchronous Communication
+Restfull API
+circuit-breaker
+
+asynchronous Communication
+microservice (order) - RabbitMQ, kafka (event bus) - microservice(notification)
+
+Service Discovery
+client - gateway - service registry - call IPs - Services (product, user,...)
+
+Securing microservice
+client applicatin - credentials/accesstoken - authorization server (identity server) - verify access token - microservices
+Frontend SPA (public facing/ip whitelisting) - Firewall - API gateway - Virtual network - microservice
+
+#--- Service Discovery
+Spring cloud - phan tan
+
+client - service name, address isntance service, data - discovery server - address instace service - service
+
+discovery service cua netflix
+https://start.spring.io/
+https://spring.io/guides/gs/service-registration-and-discovery
+
+
+
+
+
+
+
+
+
+
