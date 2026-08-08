@@ -170,6 +170,9 @@ https://www.baeldung.com/spring-boot-h2-database
 command dispatching
 command gateway
 
+--- Springboot AOP - aspect Oriented programming - lap trinh huong khia canh
+
+
 
 
 

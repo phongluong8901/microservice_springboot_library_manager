@@ -26,8 +26,16 @@ cd eventSourcing
 cd bookservice
 cd bookservice
 
+--- run eureka common
+cd proj_1
+cd eventSourcing
+cd commonservice
+cd commonservice
+
 -- install
 mvn clean install
+
+mvn clean install -DskipTests
 
 - update pom.xml
 mvn clean install - U

@@ -1,12 +1,11 @@
 package com.laptrinhfulllstack.bookservice.query.controller;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-import org.axonframework.messaging.responsetypes.ResponseType;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +18,7 @@ import com.laptrinhfulllstack.bookservice.query.queries.GetBookDetailQuery;
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookQueryController {
+
     @Autowired
     private QueryGateway queryGateway;
 
@@ -30,9 +30,13 @@ public class BookQueryController {
     }
 
     @GetMapping("{bookId}")
-    public BookResponseModel getBookDetail(@PathVariable String bookId) {
+    public ResponseEntity<BookResponseModel> getBookDetail(@PathVariable String bookId) {
         GetBookDetailQuery query = new GetBookDetailQuery(bookId);
-        return queryGateway.query(query, ResponseTypes.instanceOf(BookResponseModel.class)).join();
-    }
 
+        BookResponseModel book = queryGateway.query(
+                query,
+                ResponseTypes.instanceOf(BookResponseModel.class)).join();
+
+        return ResponseEntity.ok(book);
+    }
 }
