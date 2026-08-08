@@ -37,6 +37,148 @@ https://start.spring.io/
 https://spring.io/guides/gs/service-registration-and-discovery
 
 
+--- DDD - Domain Driven Design
+Layered architecture
+
+la tiep can va phat trien ket noi nghiep vu phuc tap
+nguyen tac thiet ke, giai quyet
+lich su cong thuc
+code the hien nghiep vu
+
+dao sau kien thuc voi Domain Expert
+tap trung mo hinh sub Domain
+thu thi tung subdomain
+
+api/web service/service application
+Application service layer: controller, command, envet
+Domain layer: write(), read()
+infrastructure layer: ORM, caching, repositories, message
+database, message queue, caching
+
+domain model
+phan tach nghiep vu con va dao sau, tap trung vao subdomain
+Ubiquitous language - ngon ngu chung
+client = customer, consumer, kh
+voucher = coupon, gift card
+
+delete the booking - cancel
+submit the order - checkout
+update the job order - extend
+create the invoice - register
+set state - start/pause
+
+Anemic model
+rich model
+
+domain service
+aggreate
+repository
+
+--- CQRS Command Query Responsibility segregation
+CRUD
+presentation -validation, bussinesslogic, data access - update/queries - data store
+3 tang: data layer, business layer, presentation
+DAL query tra lai DTO de presentation hien thi
+presentation thay doi DTO qua DAL luu vao database
+model dung chung ca doc va ghi
+chung luong doc ghi, kho scale
+
+CQRS
+chia luong doc ghi du lieu rieng biet
+scale doc lap thanh phan doc va ghi -> mo rong, bao tri, hieu suat
+Users interface - commands - command bus/handler - domail model - aggregates - repository - event store
+event bus - event handler - data - thin data layer - queyr faceade - DTO/query
+
+command: lenh phat sinh xu ly nghiep vu
+event: bao qua trinh xuly ket thuc
+command bus: dung van chuyen lenh comit
+event bus: duong van truyen event
+domain model: mo hinh nghiep vu
+DTO: dât transfer object
+query facade: mo hinh query
+command handler nhan command, thuc thi nghiep vu domain ,odel
+phat sinh event bao ket thuc qua trinh xu ly
+
+DDD: product
+CQRS-ES: Order
+CQRS: payment
+CRUD: notification
+
+1. DDD (Domain-Driven Design): product
+Lý do: Quản lý sản phẩm (Product) là một Domain cực kỳ phức tạp và là cốt lõi (Core Domain) của hệ thống thương mại điện tử. Nó chứa rất nhiều quy tắc nghiệp vụ nghiệp ngặt: phân cấp danh mục (category), thuộc tính sản phẩm (attributes) động tùy theo loại hàng, biến thể sản phẩm (variants), giá cả theo khu vực/khách hàng, và quản lý kho/tồn kho liên quan.
+
+Mục đích: Dùng DDD giúp mô hình hóa chính xác các nghiệp vụ phức tạp này bằng các khái niệm như Aggregate, Entity, Value Object, Domain Event, giúp code dễ bảo trì và bám sát thực tế kinh doanh.
+
+2. CQRS-ES (CQRS + Event Sourcing): order
+Lý do: Đơn hàng (Order) là nghiệp vụ cực kỳ nhạy cảm về mặt dữ liệu và tính toàn vẹn lịch sử. Bạn cần phải biết chính xác mỗi bước đơn hàng đã trải qua những gì (Created -> Paid -> Packed -> Shipped -> Delivered) và ai là người thực hiện.
+
+Mục đích:
+
+Event Sourcing (ES): Thay vì chỉ lưu trạng thái hiện tại của đơn hàng vào database, hệ thống lưu lại toàn bộ chuỗi các sự kiện lịch sử (Events) đã xảy ra. Điều này giúp dễ dàng audit (kiểm toán), trace lỗi, hoặc "quay ngược thời gian" khôi phục trạng thái đơn hàng khi có tranh chấp.
+
+CQRS: Tách biệt hẳn việc ghi đơn hàng (Command) và đọc danh sách/thống kê đơn hàng (Query) để tối ưu hiệu suất khi lượng truy vấn xem đơn hàng quá lớn.
+
+3. CQRS (Command Query Responsibility Segregation): payment
+Lý do: Thanh toán (Payment) có đặc thù là lượng đọc (Query) và lượng ghi (Command) cực kỳ chênh lệch. Người dùng rất ít khi xem lại lịch sử thanh toán cũ, nhưng mỗi khi thanh toán thì hệ thống phải xử lý giao dịch ghi (gọi bên thứ 3 như VNPay, MoMo, Stripe) với độ chính xác tuyệt đối và tốc độ phản hồi nhanh.
+
+Mục đích: Tách riêng hẳn luồng xử lý giao dịch thanh toán (Command side) khỏi luồng tra cứu hóa đơn/lịch sử giao dịch (Query side). Việc này giúp tối ưu hóa database cho việc ghi tiền tệ an toàn, đồng thời tạo một database riêng cho việc tra cứu lịch sử giao dịch cực nhanh mà không làm ảnh hưởng đến hiệu năng của cổng thanh toán.
+
+4. CRUD (Create, Read, Update, Delete): notification
+Lý do: Quản lý thông báo (Notification - gửi SMS, Email, Push Notification) là một nghiệp vụ hết sức đơn giản (Supporting/Generic Domain). Nó không có các logic tính toán phức tạp, không cần lưu vết lịch sử thay đổi phức tạp bằng Event Sourcing, cũng không cần tối ưu hóa quá cao siêu. Công việc chính chỉ là: Tạo thông báo -> Đọc xem đã gửi chưa -> Đánh dấu là đã đọc -> Xóa.
+
+Mục đích: Dùng mô hình CRUD truyền thống cho nhanh gọn, tiết kiệm thời gian thiết kế, code ít boilerplate, tập trung nguồn lực để dồn sức làm phức tạp cho các service cốt lõi như Product hay Order.
+
+
+
++--------------------+------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------------+
+| Tiêu chuẩn         | CRUD                                           | CQRS                                            | CQRS + ES                                                   | DDD                                                            |
++--------------------+------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------------+
+| Mục đích chính     | Thao tác dữ liệu cơ bản (Tạo, Đọc, Sửa, Xóa).  | Tách biệt luồng Ghi (Command) và Đọc (Query).   | Lưu toàn bộ lịch sử sự kiện thay vì chỉ lưu trạng thái hiện | Giải quyết bài toán nghiệp vụ phức tạp, bám sát thực tế kinh   |
+|                    |                                                |                                                 | tại.                                                        | doanh.                                                         |
++--------------------+------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------------+
+| Database           | Dùng chung 1 DB cho cả đọc và ghi.             | Có thể tách 2 DB riêng biệt (1 cho ghi, 1 cho   | Lưu các sự kiện (Event Store) + Database cho phần đọc.      | Tùy biến theo Aggregate, thường kết hợp với CQRS/ES.           |
+|                    |                                                | đọc).                                           |                                                             |                                                                |
++--------------------+------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------------+
+| Độ phức tạp        | Thấp, dễ làm nhất.                             | Trung bình.                                     | Cao, code lằng nhằng, khó debug.                            | Rất cao, đòi hỏi hiểu sâu về nghiệp vụ.                        |
++--------------------+------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------+----------------------------------------------------------------+
+
+--- Event Driven architecture
+phu hop voi he thong phan tan, xu ly realtime (notification)
+Event producer - san xuat
+Event consumer - tieu thu, nhan, lang nghe event
+Event channel (Mesasge Queue: kafka, rabit MQ, AWS SQS) - kenh
+Event broker (kafka broker, rabit MQ) - truyen su kien
+
+Event Sourcing - ES
+mo hinh luu thay doi trang thai - state vao trong  store
+luu tru lai tung buoc thay thoi state -> xay dugn lai trang thai
+replay lai event -> khoi phuc lai trang thai
+luu tru lich su thay doi cac doi tuong
+Prodcuct controller - command bus - product command handlers - product model (product table / event store table)
+CQRS - 
+
+--- Axon framwork
+https://docs.axoniq.io/axon-server-reference/v2026.0/axon-server/installation/
+cho DDD, CQRS, Event Sourcing, Event Drivent
+xay he thong phan tan - nhieu Services
+https://platform.axoniq.io/resource-center/install/server/download?version=latest
+
+--- H2 database
+https://www.baeldung.com/spring-boot-h2-database
+
+--- Command Bus va tao 1 command
+command dispatching
+command gateway
+
+
+
+
+
+
+
+
+
+
 
 
 

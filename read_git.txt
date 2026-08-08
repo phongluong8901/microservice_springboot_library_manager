@@ -6,3 +6,12 @@ git push
 
 --- 
 git checkout -b setup_server_client
+git add .
+git commit -m "setup_server_client"
+git push -u origin setup_server_client
+
+--- 
+git checkout -b build_book_service
+git add .
+git commit -m "build_book_service CRUD"
+git push -u origin build_book_service

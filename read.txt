@@ -35,7 +35,34 @@ mvn clean install - U
 -- chay bang maven
 mvn spring-boot:run
 
+- xoa file build cu va build lai moi
+mvn clean spring-boot:run
+
 - run check loi
 mvn spring-boot:run -e
 
 -- serverlink spring
+
+--- axon server
+cmd tai file ->
+java -jar axonserver.jar
+
+http://localhost:8024/
+
+--- axonserver voi docker
+docker run -d --name axonserver -p 8024:8024 -p 8124:8124 axoniq/axonserver
+- start voi th da dc khoi tao truoc do
+docker start axonserver
+
+
+--- lenh check folder, file trong du an, xem chuan Seo k
+Get-ChildItem -Recurse | Where-Object { $_.FullName -notmatch '\\node_modules|\\.next|\\.git' } | ForEach-Object {
+    $indent = "  " * ($_.FullName.Split('\').Count - (Get-Item .).FullName.Split('\').Count)
+    if ($_.PSIsContainer) {
+        "$indent📂 $($_.Name)"
+    } else {
+        "$indent📄 $($_.Name)"
+    }
+}
+
+

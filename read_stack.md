@@ -88,4 +88,49 @@ Là một ứng dụng độc lập làm nhiệm vụ lưu trữ danh sách tấ
 *   **Tích hợp hoàn hảo với hệ sinh thái Java/Spring Cloud:** Chỉ cần thêm thư viện `spring-cloud-starter-netflix-eureka-client` và vài dòng cấu hình là ứng dụng Spring Boot đã có thể tự động kết nối và đồng bộ.
 *   **Cơ chế tự bảo vệ (Self-Preservation Mode):** Nếu mạng internet chập chờn khiến Eureka Server tạm thời không nhận được nhịp tim từ hàng loạt client, thay vì xóa sạch các service ra khỏi danh sách, Eureka sẽ bật chế độ bảo vệ để giữ nguyên trạng thái cũ, tránh việc vô tình khai tử các service vẫn đang khỏe mạnh.
 
-#---
+#--- Axon Framework
+Axon Framework là một Java framework mã nguồn mở mạnh mẽ, được thiết kế chuyên dụng để xây dựng các ứng dụng microservices theo kiến trúc hướng sự kiện (Event-Driven Architecture), đặc biệt là các mô hình nâng cao như CQRS (Command Query Responsibility Segregation) và Event Sourcing (ES).
+
+Nếu bạn đang muốn làm các hệ thống phức tạp, cần lưu lại toàn bộ lịch sử thay đổi (như phân tích ở phần Order/Event Sourcing phía trên), thì Axon chính là "vũ khí tối thượng" trong hệ sinh thái Java/Spring Boot giúp bạn đỡ phải tự code lại từ đầu các cơ chế phức tạp đó.
+
+Các thành phần cốt lõi của Axon Framework:
+Commands & Command Handlers (Ghi):
+
+Đại diện cho hành động muốn thay đổi dữ liệu (ví dụ: CreateBookCommand, UpdatePriceCommand).
+
+Command Handler sẽ nhận lệnh, kiểm tra điều kiện (validation) và phát ra các sự kiện.
+
+Events & Event Sourcing (Lịch sử):
+
+Sau khi Command thực thi thành công, một Event (Sự kiện) sẽ được sinh ra và lưu trữ vào Event Store (ví dụ: BookCreatedEvent).
+
+Thay vì lưu một dòng trạng thái cuối cùng, Axon lưu lại toàn bộ chuỗi sự kiện này.
+
+Aggregates (Khối nghiệp vụ gốc):
+
+Là trung tâm xử lý nghiệp vụ. Aggregate chứa trạng thái hiện tại và các quy tắc kinh doanh. Nó nhận lệnh (Command) và sinh ra sự kiện (Event).
+
+Queries & Query Handlers (Đọc):
+
+Tách biệt hẳn với phần ghi, phần này chuyên lắng nghe các sự kiện hoặc nhận yêu cầu truy vấn để trả dữ liệu cho client một cách nhanh chóng (Read Model).
+
+Ưu điểm khi dùng Axon Framework:
+Giảm tải code boilerplate: Bạn không cần tự xây dựng cơ chế phát tán Event (Event Bus), quản lý Event Store, hay viết code "replay" lại sự kiện nữa; Axon lo hết.
+
+Tích hợp cực tốt với Spring Boot: Chỉ cần thêm dependency vào Maven/Gradle là có thể cấu hình và chạy ngay.
+
+Mở rộng dễ dàng (Scalability): Dễ dàng tách rời các service, kết hợp với Axon Server để quản lý message routing, tracking tokens và lưu trữ event cực kỳ mượt mà.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
