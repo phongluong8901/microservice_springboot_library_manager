@@ -32,6 +32,12 @@ cd eventSourcing
 cd commonservice
 cd commonservice
 
+--- run eureka employee
+cd proj_1
+cd eventSourcing
+cd employeeservice
+cd employeeservice
+
 -- install
 mvn clean install
 
