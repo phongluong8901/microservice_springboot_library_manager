@@ -64,10 +64,14 @@ java -jar axonserver.jar
 http://localhost:8024/
 
 --- DB H2 book server
-http://devbi.mobiwork.vn:9001/h2-console
+http://localhost:9001/h2-console
 
 --- DB H2 employee server
-http://devbi.mobiwork.vn:9002/h2-console
+http://localhost:9002/h2-console
+
+--- swagger
+http://localhost:9002/swagger-ui/index.html
+
 
 --- axonserver voi docker
 docker run -d --name axonserver -p 8024:8024 -p 8124:8124 axoniq/axonserver

@@ -16,12 +16,23 @@ import com.laptrinhfulllstack.employeeservice.query.model.EmployeeResponseModel;
 import com.laptrinhfulllstack.employeeservice.query.queries.GetAllEmployeeQuery;
 import com.laptrinhfulllstack.employeeservice.query.queries.GetDetailEmployeeQuery;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/employees")
+@Tag(name = "Employee Query")
+// @Hidden
 public class EmployeeQueryController {
     @Autowired
     private QueryGateway queryGateway;
 
+    @Operation(summary = "Get List Employee", description = "Get endpoint for employee with filter", responses = {
+            @ApiResponse(description = "Success", responseCode = "200"),
+            @ApiResponse(description = "Unauthorized / Invalid Token", responseCode = "401"),
+    })
     @GetMapping
     public List<EmployeeResponseModel> getAllEmployee(
             @RequestParam(required = false, defaultValue = "false") Boolean isDiscriplined) {
@@ -29,6 +40,7 @@ public class EmployeeQueryController {
                 ResponseTypes.multipleInstancesOf(EmployeeResponseModel.class)).join();
     }
 
+    // @Hidden
     @GetMapping("/{employeeId}")
     public EmployeeResponseModel getDetailemployee(@PathVariable String employeeId) {
         return queryGateway
