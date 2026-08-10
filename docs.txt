@@ -176,6 +176,74 @@ command gateway
 https://springdoc.org/
 
 
+--- API gateway
+Modern application architecture
+microservicegom rat nhieu service -> can co architect
+
+kong gateway: visualize luu luong
+load balance: chia luu luong
+caching request: luu lai cache toi uu toc do
+authentication: jwt, key authenication, LADP authentication, OAuth2.0 authentication
+
+nhuoc diem:
+tang thoi gian response: do phai di qua gateway
+them tac nhan gay loi: nhieu server, policy, gateway
+tac nhen co chai: neu config sai
+
+--- dung spring cloud xay api gateway
+xay dung san: 
+AWS api gateway
+kong gateway (free - open source) 
+https://konghq-com.translate.goog/products/kong-gateway?_x_tr_sl=en&_x_tr_tl=vi&_x_tr_hl=vi&_x_tr_pto=tc&_x_tr_hist=true
+
+tu build:
+Spring cloud gateway
+
+--- auto scaling
+
+--- rate limiting
+external api - api rate limiting (api requests per/day,months,s) - Services
+
+thrortling
+user rate limiting: han che api 1 nguoi dung rq
+server: 
+geogrpahy
+
+token: 
+bucket chua token
+refiller: nap lai token cho bucket
+overflow: cap token cho user truy cap
+
+Token buket algorithem
+add tokens - token bucket - has token - requests
+
+--- rate limiting trong microservice
+client side
+server side
+middleware
+
+client - rate limiting (redis - cache memory) - api service
+
+request - gateway app (spring) + redis(4rq/m) - mock microservice
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

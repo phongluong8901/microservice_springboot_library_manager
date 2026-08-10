@@ -38,6 +38,12 @@ cd eventSourcing
 cd employeeservice
 cd employeeservice
 
+--- run eureka apigateway
+cd proj_1
+cd eventSourcing
+cd apigateway
+cd apigateway
+
 -- install
 mvn clean install
 
@@ -72,12 +78,23 @@ http://localhost:9002/h2-console
 --- swagger
 http://localhost:9002/swagger-ui/index.html
 
+--- api gateway
+http://localhost:8081/api/v1/employees <-> http://localhost:9002/api/v1/employees
+
+--- redis tren docker
+docker run -d --name my-redis -p 6379:6379 redis:latest
+
+- ket noi redis voi local || chui trực tiếp vào giao diện dòng lệnh quản trị (CLI) của Redis bên trong container Docker
+docker exec -it my-redis redis-cli
+ping
 
 --- axonserver voi docker
 docker run -d --name axonserver -p 8024:8024 -p 8124:8124 axoniq/axonserver
 - start voi th da dc khoi tao truoc do
 docker start axonserver
 
+--- tool gui 1000 rq test redis rate limiting
+https://jmeter.apache.org/
 
 --- lenh check folder, file trong du an, xem chuan Seo k
 Get-ChildItem -Recurse | Where-Object { $_.FullName -notmatch '\\node_modules|\\.next|\\.git' } | ForEach-Object {
