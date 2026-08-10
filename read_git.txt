@@ -33,3 +33,9 @@ git checkout -b p5_swagger&apiGateway
 git add .
 git commit -m "change: swagger setup"
 git push -u origin p5_swagger&apiGateway
+
+--- 
+git checkout -b p6_kafka_notification
+git add .
+git commit -m "change: first"
+git push -u origin p6_kafka_notification
