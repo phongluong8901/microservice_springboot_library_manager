@@ -8,7 +8,11 @@ import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
 import com.laptrinhfulllstack.employeeservice.command.command.CreateEmployeeCommand;
+import com.laptrinhfulllstack.employeeservice.command.command.DeleteEmployeeCommand;
+import com.laptrinhfulllstack.employeeservice.command.command.UpdateEmployeeCommand;
 import com.laptrinhfulllstack.employeeservice.command.event.EmployeeCreatedEvent;
+import com.laptrinhfulllstack.employeeservice.command.event.EmployeeDeletedEvent;
+import com.laptrinhfulllstack.employeeservice.command.event.EmployeeUpdateEvent;
 
 import lombok.NoArgsConstructor;
 
@@ -30,6 +34,20 @@ public class EmployeeAggregate {
         AggregateLifecycle.apply(event);
     }
 
+    @CommandHandler
+    public void handle(UpdateEmployeeCommand command) {
+        EmployeeUpdateEvent event = new EmployeeUpdateEvent();
+        BeanUtils.copyProperties(command, event);
+        AggregateLifecycle.apply(event);
+    }
+
+    @CommandHandler
+    public void handle(DeleteEmployeeCommand command) {
+        EmployeeDeletedEvent event = new EmployeeDeletedEvent();
+        BeanUtils.copyProperties(command, event);
+        AggregateLifecycle.apply(event);
+    }
+
     @EventSourcingHandler
     public void on(EmployeeCreatedEvent event) {
         this.id = event.getId();
@@ -38,4 +56,19 @@ public class EmployeeAggregate {
         this.kin = event.getKin();
         this.isDiscriplined = event.getIsDiscriplined();
     }
+
+    @EventSourcingHandler
+    public void on(EmployeeUpdateEvent event) {
+        this.id = event.getId();
+        this.firstName = event.getFirstName();
+        this.lastName = event.getLastName();
+        this.kin = event.getKin();
+        this.isDiscriplined = event.getIsDiscriplined();
+    }
+
+    @EventSourcingHandler
+    public void on(EmployeeDeletedEvent event) {
+        this.id = event.getId();
+    }
+
 }
