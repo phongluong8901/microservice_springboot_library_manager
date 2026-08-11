@@ -44,6 +44,12 @@ cd eventSourcing
 cd apigateway
 cd apigateway
 
+--- run eureka notificationservice
+cd proj_1
+cd eventSourcing
+cd notificationservice
+cd notificationservice
+
 -- install
 mvn clean install
 
@@ -93,8 +99,25 @@ docker run -d --name axonserver -p 8024:8024 -p 8124:8124 axoniq/axonserver
 - start voi th da dc khoi tao truoc do
 docker start axonserver
 
+--- apache kafka tren docker
+cd proj_1
+cd eventSourcing
+
+docker compose down -v
+docker compose up -d
+
+-
+http://localhost:8021
+
 --- tool gui 1000 rq test redis rate limiting
 https://jmeter.apache.org/
+
+--- mat khau ung dung gooogle cho gui mail kafka
+https://myaccount.google.com/apppasswords?pli=1&rapt=AEjHL4PhCVuOFmyW2BstHQGvkTzPFG495n8QgDYx8kyDzbyxXbcZxHZ0EtSeVf3mPdF8UByni_wn4pm5tRuBpt1V5MsU0cqcsRCSs4uDpxlp5HuulnhgJ0M
+
+--- teamplate cho email
+https://stripo.email/templates/womens-equality-day-email-template-strong-women-for-fashion-industry/?_gl=1*2ex2xe*_up*MQ..*_ga*NzMwMTUxMzAuMTc4NjQzMDE4OA..*_ga_0TYDGF3DF2*czE3ODY0MzAxODgkbzEkZzAkdDE3ODY0MzAxODgkajYwJGwwJGgxMzc5NDQxMzYy
+
 
 --- lenh check folder, file trong du an, xem chuan Seo k
 Get-ChildItem -Recurse | Where-Object { $_.FullName -notmatch '\\node_modules|\\.next|\\.git' } | ForEach-Object {
@@ -105,5 +128,3 @@ Get-ChildItem -Recurse | Where-Object { $_.FullName -notmatch '\\node_modules|\\
         "$indent📄 $($_.Name)"
     }
 }
-
-

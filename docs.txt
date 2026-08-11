@@ -227,6 +227,155 @@ client - rate limiting (redis - cache memory) - api service
 request - gateway app (spring) + redis(4rq/m) - mock microservice
 
 
+--- message queue
+hang doi 
+message - enqueue - message queue - dequeue - out
+
+FIFO - first in first out
+
+message: text, binary, json
+Message Queue: producer - consumer giao tiep
+producer: service tao ra, dua cho message queue
+consumer: service nahn mesasge thu message queue
+1 service cos the vua lam producer vua lam consumer
+
+Usecase cua message queue
+create PDF - website application - publish (mesasge including user information) - CloudAMQ(RabbitMQ: exhange - routes - queue) - consumer - PDF createor worker
+
+1000 rq xep hang -> server sap thi message van ton tai trong queue -> restart thi van tiep tuc gui cac message
+neus dung resfull se mat tieu 1000 rq (Th mat don hang)
+
+Uu diem
+sacaling
+distributed
+duaration/recovery
+rate limit, batch process
+
+nhuoc diem
+kho xu ly dong bo
+phuc tap, can dam bao message format
+can mornitoring queue
+
+Message queue
+RabbitMQ
+kafka
+amazon SQS
+MSMQ (microsoft message queuing)
+rocketMQ
+zeroMQ
+
+--- apache kafka
+message pub/sub distributed
+open source (distributed mesasging system)
+java + scala
+
+tinh nang
+high throughput - thong luong cao (hang trieu message)
+scalability - mo rong cao, no downtime
+highly durable - ben bi cao (luu ms trong o dia)
+zero data lost - khong that thoat data
+replication - sao chep (nhan ban o cluster, ho tro subscriber)
+streamprocessing - realtime voi spark, storm
+
+website activity monitoring - theo doi hoat dong
+stream process - xu ly stream
+log aggreagation - lay log
+metrics coleection: thu thap data
+
+frontend - hadoop - data slave - chat server - 
+- Kafka (middleware) -
+- database - security system - realtime-monitoring - other service - data warehouse
+
+producer - broker (kafka cluster) - consumer - zookeeper
+
+structure
+producer - broker (topic - partition 1,2,3) - consumer A
+
+producer: ung dung co chung nang publish message vo 1 topic
+messages: byte array va developer su dung luu object voi fommart - string, json, arvo
+topic: category hoc feed name de recored dc publish
+partitions: cac topic dc chia nho vao cac partitio n
+consumer: ung dung de subscribe vao 1 topic de lay mesasge
+broker: kafka broker set cac server , moi set goi la broker
+zookeeper: quan ly va bo tri broker
+
+tool
+kafka tool - Gui till de quan ly topic va consumer
+lense: ho tro query kafka
+akhq la toolbox quan ly kafka nhu view data trong kafka
+
+--- tao notification service
+Admin - view service - book, browwing, employee, notification - DB
+
+--- kafka - error handling
+topic create book - consume message - book service 
+throw message (thong tao sach bi that thoat, mat sach hoac mat thong tin)
+
+retry cua kafka consumer:
+available retry: 3 lan
+unavailable retry: 
+
+consumer - attempt 1 - attempt 2 - attempt 3 ... (500ms)
+cosumer se bi cloking
+sau 10 attempts consumer moi xu ly cac message
+
+anh huong latency
+chiem tai nguyen consumer
+lho trace path mesasge loi
+kho lap day metadata khi retry
+khong linh hoat
+
+primary topic - consume mesasge A/B - App - produce fauled message A - Retry topic - retry failed mesasge A
+
+separate retry queue
+consumer k bi build_book_service
+de trace path message loi
+
+dead letter queue (DLQ)
+primary topic - consume message - App - retry (3) - DLQ topic
+
+--- Freeamrker Data
+ngon ngu STL
+input: teamplate
+java object: value
+output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

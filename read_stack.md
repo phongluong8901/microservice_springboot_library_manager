@@ -121,7 +121,21 @@ Tích hợp cực tốt với Spring Boot: Chỉ cần thêm dependency vào Mav
 
 Mở rộng dễ dàng (Scalability): Dễ dàng tách rời các service, kết hợp với Axon Server để quản lý message routing, tracking tokens và lưu trữ event cực kỳ mượt mà.
 
+--- zooleeper voi kafka
+Apache ZooKeeper là một dịch vụ tập trung dùng để duy trì thông tin cấu hình, đặt tên, cung cấp đồng bộ hóa phân tán và quản lý nhóm (group services) cho các hệ thống phân tán lớn.
 
+Trong hệ thống, ZooKeeper hoạt động giống như một "người điều phối" hoặc "thư ký trưởng" giúp các node trong một hệ thống phân tán (cluster) biết được trạng thái của nhau và giữ cho mọi thứ đồng bộ.
+
+Tại sao ZooKeeper lại được dùng với Kafka?
+Trước đây, ZooKeeper đóng vai trò cốt lõi trong kiến trúc của Apache Kafka để quản lý và điều phối toàn bộ cluster Kafka. Các nhiệm vụ chính bao gồm:
+
+Quản lý Broker (Broker Coordination): ZooKeeper duy trì danh sách các broker đang hoạt động trong cluster. Nếu một broker bị sập hoặc mất kết nối, ZooKeeper sẽ phát hiện ra và thông báo cho các broker khác.
+
+Bầu chọn Controller (Controller Election): Trong một cluster Kafka, luôn cần một broker đóng vai trò là "Controller" (quản lý việc phân chia partition, xử lý broker lỗi,...). ZooKeeper giúp bầu chọn broker nào sẽ đảm nhận vai trò này.
+
+Quản lý Metadata của Topic: ZooKeeper lưu trữ thông tin về cấu hình của các topic, partition, vị trí đặt replica (bản sao), và danh sách các ACL (Access Control Lists).
+
+Theo dõi Offset (Consumer Offset - các phiên bản cũ): Trước đây, các consumer có thể lưu offset (vị trí tin nhắn đã đọc) trực tiếp lên ZooKeeper (mặc dù hiện nay Kafka đã chuyển sang lưu offset trong chính một internal topic của Kafka).
 
 
 
