@@ -39,3 +39,9 @@ git checkout -b p6_kafka_notification
 git add .
 git commit -m "change: first"
 git push -u origin p6_kafka_notification
+
+--- 
+git checkout -b p7_borowservice_distributed_saga
+git add .
+git commit -m "change: first"
+git push -u origin p7_borowservice_distributed_saga
