@@ -45,3 +45,9 @@ git checkout -b p7_borowservice_distributed_saga
 git add .
 git commit -m "change: first"
 git push -u origin p7_borowservice_distributed_saga
+
+--- 
+git checkout -b p8_docker_microservice
+git add .
+git commit -m "change: first"
+git push -u origin p8_docker_microservice
