@@ -7,11 +7,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.laptrinhfulllstack.commonservice.model.EmployeeResponseCommonModel;
 import com.laptrinhfulllstack.employeeservice.command.data.Employee;
 import com.laptrinhfulllstack.employeeservice.command.data.EmployeeRepository;
 import com.laptrinhfulllstack.employeeservice.query.model.EmployeeResponseModel;
 import com.laptrinhfulllstack.employeeservice.query.queries.GetAllEmployeeQuery;
-import com.laptrinhfulllstack.employeeservice.query.queries.GetDetailEmployeeQuery;
+import com.laptrinhfulllstack.commonservice.queries.GetDetailEmployeeQuery;
 
 @Component
 public class EmployeeProjection {
@@ -29,11 +30,11 @@ public class EmployeeProjection {
     }
 
     @QueryHandler
-    public EmployeeResponseModel handle(GetDetailEmployeeQuery query) throws Exception {
+    public EmployeeResponseCommonModel handle(GetDetailEmployeeQuery query) throws Exception {
         Employee employee = employeeRepository.findById(query.getId())
                 .orElseThrow(() -> new Exception("Employee not found"));
 
-        EmployeeResponseModel model = new EmployeeResponseModel();
+        EmployeeResponseCommonModel model = new EmployeeResponseCommonModel();
         BeanUtils.copyProperties(employee, model);
         return model;
     }

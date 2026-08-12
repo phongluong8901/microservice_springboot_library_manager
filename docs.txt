@@ -340,18 +340,116 @@ input: teamplate
 java object: value
 output
 
+--- Borrowing service
+sa
+
+--- Distributed Transaction
+customer - order service - payment service - delivery service - restaurant store
+
+Dual write problem
+
+Transaction:
+Atomicity - tat ca thanh cong hoac rollback
+consistency - nhat quan, rang buoc, quy tac
+isolation - co lap voi cac transaction khac
+Durability - ben vung, luu tru thay doi CSDL
+
+Concept
+All or nothing
+thanh cong tat ca hoac khong co gi
+1 servide loi -> rollback 4 service ve trang thai ban dau
+
+Single data base
+Begin transaction
+insert information
+update
+delete
+commit
+
+monolithic architecture
+user (place order) - service(begin transaction, update balance, update order, update shipment, commit) - database() - order placed
+khoi tao transaction - tru tien tk - tao don hang - cap naht giao hang - commit
+
+microservice architecture
+user(place order/ order placed) - orchestrator(update balance, update order, update shipment) - payment service - order service - delivery service
+payment service: kiem tra tk, cong tru so du
+order service: tao va quan ly order
+delivery service: tao va quan ly cong viec giao hang
+
+neu error thi sao?
+mat tinh nhat quan (tien tru thanh cong nhung k co don hang) -> quan li transaction da bi phan tan qua 3 service
+Two-phase commit
+Three-phase commit
+Saga pattern with Orchestration va choreography
+Parallel pipeline
+
+--- Saga pattern
+Choregraphy -event based
+Orchestration - command based
+
+- Orchestration - Command based
+Saga orchestration la dieu phoi cac local transaction de cacs trnsaction dc excute hoac rollback dung thu tu
+excute hay rollback phu thuoc vao y/c orchestrator
+1 cai fail thi rollback lai ca 4
+
+Distributed transaction
+Customer - order service - order created - orchestrator service(I/O payment, retaurance, order, delivery) - payment service - restaurance store - delivery service
+orchestrator service: nam trung gian, tung service nao xong se bao va cap nhat lai tai orchestrator service va order service -> dam bao tinh toan ven cho order
+Neu loi 1 trong 4 service -> rollback(vidu: loi tai payment -> xoa order, loi tai restaurant -> xoa order, xoa payment, loi tai delivery - > xoa store, payment, order)
+
+Exception handling
+khi het nguyen lieu
+Retry: restaurant (mua them nguyen lieu)
+Abort: bao cho orchestrator k con nhan vien mua nguyen leu -> rollback (payment tra lai tien, order service update) goi dien bao khach
+
+State lau o dau
+retry bao lan
+abort khi nao
+backbone communication: Rest Api, gRPC, Mesasge broker
+
+Characteristic
+good for complex worflow/ less cooupling
+sepratation of concerns
+
+Drawbacks
+Single-point failure: Separation of concerns
+Bottle neck/latency
+
+--- Saga trong Axon Framework
+trong ung dung co the co nhieu Saga
+moi thu deu phai pass - khong thi rollback het tat ca
+Lifecycle - 
+
+Event handling - moi su kien co 1 cai khoa chinh 
+nhieu event - 1 khoa
 
 
+--- docker container image
+docker va containerization
 
+containerization
+Environment: 
+developement - write code - developer
+testing - veriyf code - QA
+Staging - test infrastructure - product & stakeholders
+production - deploy live - end
 
+dong goi toan bo vao container: on dinh, nhat quan (env)
+container la cong nghe ao hoa - giai quyet dependencies
+nhat quan - hieu suat
+hieu qua - chung kernel os
+di dong - tuong thich
+kha nang mo rong - nhu cau
+co lap - bao mat
 
+client(docker build, pull, run) - docker host(docker daemon, containers, images) - registry (redis, nginx)
 
+docker engine
+docker CLI
+docker API
+docker Daemon
 
-
-
-
-
-
+server docker - RestApi
 
 
 

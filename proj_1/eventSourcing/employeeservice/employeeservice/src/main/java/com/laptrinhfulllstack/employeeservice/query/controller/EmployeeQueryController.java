@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.laptrinhfulllstack.commonservice.model.EmployeeResponseCommonModel;
 import com.laptrinhfulllstack.employeeservice.query.model.EmployeeResponseModel;
 import com.laptrinhfulllstack.employeeservice.query.queries.GetAllEmployeeQuery;
-import com.laptrinhfulllstack.employeeservice.query.queries.GetDetailEmployeeQuery;
+import com.laptrinhfulllstack.commonservice.queries.GetDetailEmployeeQuery;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,25 +27,26 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Employee Query")
 // @Hidden
 public class EmployeeQueryController {
-    @Autowired
-    private QueryGateway queryGateway;
+        @Autowired
+        private QueryGateway queryGateway;
 
-    @Operation(summary = "Get List Employee", description = "Get endpoint for employee with filter", responses = {
-            @ApiResponse(description = "Success", responseCode = "200"),
-            @ApiResponse(description = "Unauthorized / Invalid Token", responseCode = "401"),
-    })
-    @GetMapping
-    public List<EmployeeResponseModel> getAllEmployee(
-            @RequestParam(required = false, defaultValue = "false") Boolean isDiscriplined) {
-        return queryGateway.query(new GetAllEmployeeQuery(isDiscriplined),
-                ResponseTypes.multipleInstancesOf(EmployeeResponseModel.class)).join();
-    }
+        @Operation(summary = "Get List Employee", description = "Get endpoint for employee with filter", responses = {
+                        @ApiResponse(description = "Success", responseCode = "200"),
+                        @ApiResponse(description = "Unauthorized / Invalid Token", responseCode = "401"),
+        })
+        @GetMapping
+        public List<EmployeeResponseModel> getAllEmployee(
+                        @RequestParam(required = false, defaultValue = "false") Boolean isDiscriplined) {
+                return queryGateway.query(new GetAllEmployeeQuery(isDiscriplined),
+                                ResponseTypes.multipleInstancesOf(EmployeeResponseModel.class)).join();
+        }
 
-    // @Hidden
-    @GetMapping("/{employeeId}")
-    public EmployeeResponseModel getDetailemployee(@PathVariable String employeeId) {
-        return queryGateway
-                .query(new GetDetailEmployeeQuery(employeeId), ResponseTypes.instanceOf(EmployeeResponseModel.class))
-                .join();
-    }
+        // @Hidden
+        @GetMapping("/{employeeId}")
+        public EmployeeResponseCommonModel getDetailemployee(@PathVariable String employeeId) {
+                return queryGateway
+                                .query(new GetDetailEmployeeQuery(employeeId),
+                                                ResponseTypes.instanceOf(EmployeeResponseCommonModel.class))
+                                .join();
+        }
 }

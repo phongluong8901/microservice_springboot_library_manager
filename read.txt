@@ -50,6 +50,12 @@ cd eventSourcing
 cd notificationservice
 cd notificationservice
 
+--- run eureka borrwoingservice
+cd proj_1
+cd eventSourcing
+cd borrowingservice
+cd borrowingservice
+
 -- install
 mvn clean install
 

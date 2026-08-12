@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.laptrinhfulllstack.bookservice.command.data.Book;
 import com.laptrinhfulllstack.bookservice.command.data.BookRepository;
+import com.laptrinhfulllstack.commonservice.event.BookRollBackStatusEvent;
+import com.laptrinhfulllstack.commonservice.event.BookUpdateStatusEvent;
 
 @Component
 public class BookEventsHandler {
@@ -46,6 +48,24 @@ public class BookEventsHandler {
         // }
 
         oldBook.ifPresent(bookRepository::delete);
+    }
+
+    @EventHandler
+    public void on(BookUpdateStatusEvent event) {
+        Optional<Book> oldBook = bookRepository.findById(event.getBookId());
+        oldBook.ifPresent(book -> {
+            book.setIsReady(event.getIsReady());
+            bookRepository.save(book);
+        });
+    }
+
+    @EventHandler
+    public void on(BookRollBackStatusEvent event) {
+        Optional<Book> oldBook = bookRepository.findById(event.getBookId());
+        oldBook.ifPresent(book -> {
+            book.setIsReady(event.getIsReady());
+            bookRepository.save(book);
+        });
     }
 
 }

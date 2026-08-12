@@ -137,12 +137,24 @@ Quản lý Metadata của Topic: ZooKeeper lưu trữ thông tin về cấu hìn
 
 Theo dõi Offset (Consumer Offset - các phiên bản cũ): Trước đây, các consumer có thể lưu offset (vị trí tin nhắn đã đọc) trực tiếp lên ZooKeeper (mặc dù hiện nay Kafka đã chuyển sang lưu offset trong chính một internal topic của Kafka).
 
+--- Saga
+Trong các giao dịch phân tán (distributed transaction), mô hình Saga có tác dụng giải quyết bài toán đảm bảo tính nhất quán dữ liệu (data consistency) giữa nhiều microservices khác nhau mà không cần dùng đến cơ chế khóa toàn cục (Two-Phase Commit - 2PC) vốn gây chậm hệ thống và giảm hiệu năng.
+
+Dưới đây là các tác dụng cốt lõi và cách hoạt động của Saga:
 
 
+1. Giải quyết bài toán "Distributed Transaction" mà không cần Two-Phase Commit (2PC)Vấn đề: Trong kiến trúc microservice, mỗi dịch vụ thường có cơ sở dữ liệu riêng. Một nghiệp vụ lớn (như đặt hàng) cần gọi qua nhiều dịch vụ (Kho hàng $\rightarrow$ Thanh toán $\rightarrow$ Vận chuyển). Nếu dùng 2PC, hệ thống phải khóa dữ liệu ở tất cả các nơi cho đến khi mọi thứ hoàn tất, gây nghẽn cổ chai và dễ chết deadlock.Tác dụng của Saga: Thay vì một giao dịch lớn duy nhất, Saga chia nhỏ quy trình thành một chuỗi các giao dịch cục bộ (local transactions) chạy tuần tự hoặc song song ở từng microservice. Mỗi bước hoàn thành sẽ commit dữ liệu độc lập trên database của dịch vụ đó ngay lập tức.
+
+2. Xử lý lỗi và Hoàn tác (Compensating Transactions)Vì các bước trước đã commit dữ liệu độc lập, nếu một bước ở giữa bị lỗi (ví dụ: hết hàng ở kho sau khi tài khoản ngân hàng đã bị trừ tiền), hệ thống không thể "rollback" theo cách thông thường.Tác dụng của Saga: Sử dụng giao dịch bù (compensating transaction). Với mỗi hành động đã thực hiện, Saga định nghĩa một hành động ngược lại để hủy bỏ nó.Ví dụ: Bước 1: Trừ tiền (Thành công). Bước 2: Đặt hàng (Thất bại $\rightarrow$ kích hoạt bù: Hoàn tiền).
+
+3. Đảm bảo tính nhất quán cuối cùng (Eventual Consistency)
+Saga chấp nhận đánh đổi tính nhất quán tức thời (strong consistency) để đổi lấy hiệu năng cao và độ mở rộng (scalability) tốt của hệ thống phân tán. Dữ liệu giữa các services có thể lệch nhau trong vài mili-giây hoặc giây, nhưng cuối cùng sẽ đồng bộ (đạt Eventual Consistency).
 
 
+Hai mô hình triển khai Saga chính:
+Choreography (Phi tập trung / Dựa trên sự kiện): Các service tự lắng nghe sự kiện (events) của nhau và tự quyết định bước tiếp theo. Phù hợp với hệ thống nhỏ, ít bước.
 
-
+Orchestration (Tập trung / Dựa trên điều phối): Có một service trung tâm gọi là Orchestrator đứng ra điều phối toàn bộ luồng đi, gọi service nào trước, service nào sau, và chủ động kích hoạt bù khi có lỗi. Phù hợp với nghiệp vụ phức tạp, nhiều bước.
 
 
 

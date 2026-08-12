@@ -1,4 +1,4 @@
-package com.laptrinhfulllstack.employeeservice.query.queries;
+package com.laptrinhfulllstack.commonservice.queries;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
