@@ -57,3 +57,9 @@ git checkout -b p9_keycloak_Oauth2
 git add .
 git commit -m "change: first"
 git push -u origin p9_keycloak_Oauth2
+
+--- 
+git checkout -b p10_k8s_kurbenet
+git add .
+git commit -m "change: first"
+git push -u origin p10_k8s_kurbenet
