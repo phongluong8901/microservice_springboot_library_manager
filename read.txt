@@ -194,3 +194,49 @@ Get-ChildItem -Recurse | Where-Object { $_.FullName -notmatch '\\node_modules|\\
 
 --- page de dong goi cac folder github de tai ring ve may
 https://download-directory.github.io/
+
+--- cai kubernet tren powershell
+winget install Kubernetes.minikube
+winget install Kubernetes.kubectl
+
+
+- start server
+minikube start
+
+- xem dashboard
+minikube dashboard
+
+kubectl get pods
+
+kubectl get service
+
+--- build with k8s k8s.deploy.yaml
+cd proj_1
+cd eventSourcing
+
+- build lai container docker-compose-k8s
+docker compose -f docker-compose-k8s.yml up -d --build
+docker image ls
+
+- sua trong .yaml -> eventsourcing-discoverserver:latest
+kubectl version --client
+
+- run minikube de deploy - cmd
+minikube start
+
+- run tai powershell
+kubectl apply -f .\k8s.deploy.yaml
+
+- check truc quan dasboard - cmd
+minikube dashboard
+
+
+
+
+
+
+
+
+
+
+

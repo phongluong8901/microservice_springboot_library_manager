@@ -522,15 +522,53 @@ groups - gom nhom user de phan quyen
 sessions - phien dang nhap cua user (sesssion theo doi thoi gian hoat dong - khi dang xuat se xoa session (active/expire/idle))
 Events - su kien trong he thong keycloak (loin,logout, change password,...)
 
+--- kubernets
+k8s - la he thong dieu phoi cotnainers ma nguon mo cua google
+giup deploy va manager application
 
+nen dung kubernet - k8s
+monolithic application
+transition to microservices
+docker - create containers
+kubernet - launch your containers application in k8s
 
+loi ich k8s
+sacale (ngang-horizontal, doc-vertical)
+available (dam bao co 3 server swap nhau)
+continuous/deployment delivery (cap nhat de dang - CICD)
+di dong (nhat quan, tin cay)
 
+difficut
+complexibility - nhieu tinh nang va option
+tai nguyen may chu cao 
+network - phuc tap
+chi phi - 
+bao mat
 
+--- kubernet architecture
 
+Admin UI/CLI - control plane (controller manager - Schdualer - etcd) - API server - woker node 1(Pod1(container1, container 2), Pod2(container1, container 2))
 
+control plane: quan li trang thai cluster, chay tren nhieu node
+api server: update, sacle, Lifecycle
+etcd: quan li value attributed, luu trang thai cluster, tinh trang ... nhu DB
+scheduler: len lich
+controller manager: dung thong tin trang thao doi tuong k8s luu tru trong etcd de theo doi theo target
+pod: chua cac container, thuong dung 1 pod cho 1 container
 
+worker node (pod - container runtime - kubelet - kube-proxy)
+kubelet: thao tac voi control plane de get, set
+container runtime: chay chinh boi container tu kubelet
+kube-proxy: chay tren cac node de forward cac y/c mang giua cac pod va cluster (giong lb)
 
+- kubernet va docker
+bo sung cho nhau de chay container
+dung docker de deploy va scale cac container trong docker
 
+winget install Kubernetes.minikube
+winget install Kubernetes.kubectl
+2CPU
+20GB free dispace
 
 
 
