@@ -447,14 +447,68 @@ client(docker build, pull, run) - docker host(docker daemon, containers, images)
 docker engine
 docker CLI
 docker API
-docker Daemon
+docker Daemon: build, chay, quan li
 
 server docker - RestApi
+container
+network
+images
+data volumns
 
+docker image
+blueprint 
+tao docker - image k thay doi - image nhu container
 
+docker container
+nhat quan
+cach ly env
+ung dung
+phu thuoc
 
+docker hub
+registry/hub
+pull/push
+pull - images - run - container
+push - images - build - run - container
 
+--- build local springboot application
 
+--- dockerfile
+
+--- docker compose
+phat trien nhieu container
+kiem soat tat cac stack application, quan li service, network, volum de hon trong 1 file .yml
+
+--- Keycloak
+authenication va authorization
+bao mat manh, quan li, uy quyen
+xac thuc nhieu ung dung
+vi du giao hang, quan li, mua hang cho microservice
+login 1 lan tren 1 app -> cac cai khac se lay dc thong tin
+
+connect social networking: giong firebase - google, facebook, ...
+xac thuc thong qua
+
+user fedaration - ket noi LADP
+user manager
+
+ho tro ma hoa, bao mat, token, nhieu nen tang, nhe, nhanh, de scale, chuan OAtuh2.0, SAML2.0
+dang nhap 1 lan tren nhieu ung ung
+
+--- OAuth 2.0
+khi bam uy quyen -> hien ra dang nhap va uy quyen thong tin
+
+may bank application - Bank(APi) - (authorization request/ authorization grant/ access token)Auth Server - (access token/protect resource)Resource server
+
+--- OpenID connect
+xac thuc va uy quyen
+k dung folow cu (tu viet acess vaf refresh, tu viet bao mat -> da cu)
+-> gio dung
+
+OpenID
+End User, Access token, identity token, claims
+
+--- keycloak
 
 
 

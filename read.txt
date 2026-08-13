@@ -125,6 +125,42 @@ https://myaccount.google.com/apppasswords?pli=1&rapt=AEjHL4PhCVuOFmyW2BstHQGvkTz
 https://stripo.email/templates/womens-equality-day-email-template-strong-women-for-fashion-industry/?_gl=1*2ex2xe*_up*MQ..*_ga*NzMwMTUxMzAuMTc4NjQzMDE4OA..*_ga_0TYDGF3DF2*czE3ODY0MzAxODgkbzEkZzAkdDE3ODY0MzAxODgkajYwJGwwJGgxMzc5NDQxMzYy
 
 
+--- docker build service discoverserver
+- doanwload package po.xml -> dong goi -> .jar
+mvn clean install -DskipTests
+
+- keo .jar ra dekstop -> cmd
+java -jar discoverserver-0.0.1-SNAPSHOT.jar
+
+- build docker image -> dockerfile
+cd proj_1
+cd eventSourcing
+cd discoverserver
+cd discoverserver
+
+docker build -t discoverserver .
+
+- build tu image sang container
+docker run -p 8761:8761 discoverserver
+
+--- docker compose
+cd proj_1
+cd eventSourcing
+
+docker compose -f docker-compose-service.yml up -d
+
+- build tu image sang container
+docker compose -f docker-compose-service.yml up -d --build
+
+- check status
+docker compose ps
+
+- down
+docker compose -f docker-compose-service.yml down
+
+
+
+
 --- lenh check folder, file trong du an, xem chuan Seo k
 Get-ChildItem -Recurse | Where-Object { $_.FullName -notmatch '\\node_modules|\\.next|\\.git' } | ForEach-Object {
     $indent = "  " * ($_.FullName.Split('\').Count - (Get-Item .).FullName.Split('\').Count)
