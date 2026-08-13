@@ -56,6 +56,12 @@ cd eventSourcing
 cd borrowingservice
 cd borrowingservice
 
+--- run eureka userservice
+cd proj_1
+cd eventSourcing
+cd userservice
+cd userservice
+
 -- install
 mvn clean install
 
@@ -158,7 +164,21 @@ docker compose ps
 - down
 docker compose -f docker-compose-service.yml down
 
+--- docker build keycloak
+cd proj_1
+cd eventSourcing
 
+docker compose -f docker-compose-provider.yml up -d
+
+docker compose -f docker-compose-provider.yml down
+
+
+--- userservice them myssql xampp
+user root, no pass
+
+- doi password cho file .yml - dung sql tren phpadmin
+ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
+FLUSH PRIVILEGES;
 
 
 --- lenh check folder, file trong du an, xem chuan Seo k
@@ -170,3 +190,7 @@ Get-ChildItem -Recurse | Where-Object { $_.FullName -notmatch '\\node_modules|\\
         "$indent📄 $($_.Name)"
     }
 }
+
+
+--- page de dong goi cac folder github de tai ring ve may
+https://download-directory.github.io/

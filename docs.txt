@@ -510,7 +510,17 @@ End User, Access token, identity token, claims
 
 --- keycloak
 
+--- chuc nang keycloak
+realm: 
+create realm - khong gina biet lap de quan li nguoi dung, quyen, bao mat, group, doc lap
 
+clients - authenication (access, refresh token)
+client scopes - quyen truy cap, du lieu (emaik, phone, address, profile...)
+realm roles - roles (cho cac client)
+users - nguoi dung (roles, attribute)
+groups - gom nhom user de phan quyen
+sessions - phien dang nhap cua user (sesssion theo doi thoi gian hoat dong - khi dang xuat se xoa session (active/expire/idle))
+Events - su kien trong he thong keycloak (loin,logout, change password,...)
 
 
 

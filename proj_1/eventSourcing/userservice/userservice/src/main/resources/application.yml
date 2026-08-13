@@ -1,0 +1,29 @@
+server:
+  port: 9005
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: userservice
+  datasource:
+    url: jdbc:mysql://localhost:3307/ltfullstack?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+idp:
+  url: http://localhost:8180
+  client-id: ltfullstack_app
+  client-secret: 5V6X2L0gTqEfuVJRcrshRvbCjtRH5Jrp
+  realm: ltfullstack
