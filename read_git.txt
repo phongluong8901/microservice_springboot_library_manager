@@ -63,3 +63,8 @@ git checkout -b p10_k8s_kurbenet
 git add .
 git commit -m "change: first"
 git push -u origin p10_k8s_kurbenet
+
+git checkout -b p11_VPS_deploy
+git add .
+git commit -m "change: first"
+git push -u origin p11_VPS_deploy
