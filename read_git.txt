@@ -64,7 +64,14 @@ git add .
 git commit -m "change: first"
 git push -u origin p10_k8s_kurbenet
 
+---
 git checkout -b p11_VPS_deploy
 git add .
 git commit -m "change: first"
 git push -u origin p11_VPS_deploy
+
+---
+git checkout -b p12_CICD_githubActions
+git add .
+git commit -m "change: first"
+git push -u origin p12_CICD_githubActions
