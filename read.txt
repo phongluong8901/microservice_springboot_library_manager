@@ -230,6 +230,14 @@ kubectl apply -f .\k8s.deploy.yaml
 - check truc quan dasboard - cmd
 minikube dashboard
 
+--- Portainer cua docker
+giao dien nhe hon docker dekstop, chay dc tren server
+UI nhe de quan li - quan li voi docker va  kubenert
+quan li theo dang stack
+chay dc tren ccloud, trinh duyet
+
+tao tai khoan de phan quyen nguoi dung
+nhieu container, nhieu service - > phan quyen
 
 
 

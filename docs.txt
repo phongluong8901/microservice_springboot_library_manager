@@ -570,25 +570,111 @@ winget install Kubernetes.kubectl
 2CPU
 20GB free dispace
 
+--- VPS hosting
+virtual private server
+dia chi ip rieng, ram , cpu rieng
+tach 1 con may chu vat li -> nhieu may ao tach cac ram, cpu, memory ra
+
+loi ich
+hieu suat
+quan li
+chi phi
+da dang
+
+types of web hosting
+shared hosting: dung chung may chu vat li
+VPS: tach ra
+Dedicated server: thue toan bo may chu vat ly
+
+--- mua VPS, truy cap SSH
+vietinx
+gia re
+ubuntu
+CLI
+thanh toan
+
+- test public
+ping vao cong 103.126.161.94
+- chui vao server VPS
+ssh root@103.126.161.94
+y
+ls
+cd
+ls
+
+- vao swagger
+103.126.161.94/api/v1/docs
+
+- setup moi truong cho server (git, docker)
+cai trong server VPS
+sudo apt update
+
+--- proxy va reverse proxy
+port mac dinh
+https - 443
+http - 80
+
+proxy
+client - proxy server - internet
+dung o nguoi dung cuoi va trang web
+khong cho client truy cap thang vao port ma qua proxy, ngan chan kh giao tiep truc tiep server
+bao mat
+di lam ma vao internet bi chan (youtobe, facebook) -> cong ty cai proxy server (mang noi bo) -> bi chan (thong qua proxy server - cai chinh sach loc request toi trang web)
+kiem soat web truy cap, ghi lai lich su truy cap IP
+
+reverse proxy flow
+user's device(D) - internet - reverse proxy (E) - original server (F)
+kiem soat tu ben ngoai vao ben trong
+gui request toi reverse proxy - toi may chu phan hoi tot nhat
+
+reverse proxy
+phan phoi hieu qua
+tang toc do tai trang
+bao mat tot
+cham dut SSL
+chuyen huong linh hoat
+
+https://vietnix.vn/vps-gia-re/
+
+https://nginx.org/
+
+--- cai dat nginx tren ubuntu
+la webserver giong reverse proxy
+release 20024, opensource
+dung de tro vao url server
+
+--- tro domain ve web service bang nginx
+khong cho biet dia chi ip, no pha, ddos, xau
+-> can moi domain 
+
+https://www.matbao.net/ten-mien/dang-ky-ten-mien
+
+-> mua domain tai matbao
+discoveserver.laptrinhfullstack.com -> nginx home (do dang map 80 - http)
+discoveserver.laptrinhfullstack.com:8467 -> van xau, k muon port
+-> config nginx
+
+--- TLS/SSL mien phi voi Certbot
+khong co tls/ssl thi chi dung dc http -> khong an toan
+
+-> can len https -> can SSL
+
+SSL - la giao thuc an toan cho web
+SSL ma hoa thong tin 
+gui request (client - server (thong tin ca nhan)) - ma hoa
+
+http bi lo thong tin do k dc ma hoa -> hacker ma kiem soat duong truyen -> lay dc thong tin nguoi dung -> ro ri thong tin KH 
+-> khong https -> not security
+
+De bat dc SSL 
+lay tu cloudfare (lay SSL)
+certbot - > free
+mua SSL tu nha cung cap - mat bao
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+https://certbot.eff.org/
+command line - http - hosting - ssh
+-> convert to https
 
 
 
