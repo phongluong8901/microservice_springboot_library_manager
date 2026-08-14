@@ -677,19 +677,63 @@ command line - http - hosting - ssh
 -> convert to https
 
 
+--- CI/CD pipeline
+Code - Test - Deploy - package - monitoring - build
+
+devOps/leader
+
+CI - continuous integration - lien tuc kiem tra va tich hop code
+Code - commit(related code) - CI pipeline(build - unit tests - integration tests) - CD pipeline(review - staging - production) 
+
+Steps in CI
+Functional tests: hoat dong dung mong doi - QA
+Security scans: lo hong bao mat - SQL injection , XSS
+code quality scans: tieu chuan, coding style
+perfomance tests: hieu suat, chiu tai
+license scanning: thu vien va cong cu, phap ly
+fuzz testing: gui chuoi ki tu bat thuong xem co crash k
+
+CD - dua code len / deploy - continuous delivery
+
+Steps CD
+Build: complied language
+Deploy: day docker image len repository, AWS
+
+--- review pipeline du an
+developer - git repository
+ubuntu lastet - checkout - docker hub login - setup docker buildX - setupcache - build push docker image - user personal access token - docker hub - pull image - server VPS
+
+--- github actions
+tu dong hoa work flow
+thich hop CICD
+build - test - deploy
+
+name: ten wrokflow
+run-name
+on: trigger event
+using filters: dung cho branch nao
+jobs: chay lan luot
+jobs.steps: cac buoc trong job
+    name
+    uses
 
 
+--- tao github wrokflow
+git repository - Actions - new workflow
+
+Configure(docker image)
+
+https://github.com/phongluong8901/microservice_springboot_library_manager/actions/workflows/cicd.yml
 
 
+--- build va push image len docker hub
+https://app.docker.com/accounts/phongluong3366
 
+build cicd.yml -> len docker hub
 
+--- ket noi VPS SSH (CICD pipeline)
 
-
-
-
-
-
-
+--- scipt upload server
 
 
 
