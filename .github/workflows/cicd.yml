@@ -1,0 +1,18 @@
+name: CI/CD pipeline
+
+on:
+  push:
+    branches: [ "main-CICD" ]
+  pull_request:
+    branches: [ "main-CICD" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: print text
+      run: echo hello word
